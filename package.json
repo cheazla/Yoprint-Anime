@@ -26,9 +26,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "vite --port 4000",
+    "build": "vite build",
+    "preview": "vite preview",
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
