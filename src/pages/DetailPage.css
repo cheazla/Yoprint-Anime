@@ -1,6 +1,6 @@
 .detail-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(180deg, #02bdd8 0%, #ff7282 100%);
   position: relative;
   overflow: hidden;
 }
@@ -69,7 +69,7 @@
   align-items: center;
 }
 
-.anime-image {
+.anime-imagex {
   width: 100%;
   max-width: 400px;
   height: auto;

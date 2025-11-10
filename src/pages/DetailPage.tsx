@@ -71,7 +71,7 @@ const DetailPage: React.FC = () => {
               <img
                 src={selectedAnime.images?.jpg?.image_url}
                 alt={selectedAnime.title}
-                className="anime-image"
+                className="anime-imagex"
               />
             </div>
 
