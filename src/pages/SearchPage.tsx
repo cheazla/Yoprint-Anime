@@ -10,6 +10,9 @@ import {
 import SearchBar from "../components/SearchBar";
 import "./SearchPage.css";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 function debounce<F extends (...args: any[]) => void>(func: F, wait: number) {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<F>) => {
@@ -154,44 +157,69 @@ const SearchPage: React.FC = () => {
           />
         </div>
 
-        {loading && <p className="loading-text">Loading amazing anime...</p>}
-        {error && <p className="error-text">{error}</p>}
-
         <div className="results-container">
           <h2 className="section-title">
             {hasSearched && hasResults ? "Search Results" : "Trending Anime"}
           </h2>
 
-          {hasSearched ? (
-            hasResults ? (
-              <>
-                <div className="anime-grid">
-                  {searchResults.map((anime, index) =>
-                    renderAnimeCard(anime, index)
-                  )}
-                </div>
-                {hasMore && (
-                  <button
-                    className={`load-btn ${btnHover ? "hover" : ""}`}
-                    onClick={loadMore}
-                    onMouseEnter={() => setBtnHover(true)}
-                    onMouseLeave={() => setBtnHover(false)}
-                  >
-                    {loading ? "Loading..." : "Load More"}
-                  </button>
-                )}
-              </>
-            ) : (
-              !loading && (
-                <p className="no-results">
-                  No results found. Try a different search!
-                </p>
-              )
-            )
-          ) : (
+          {/* Loading Skeleton */}
+          {loading && (
             <div className="anime-grid">
-              {trending.map((anime, index) => renderAnimeCard(anime, index))}
+              {Array.from({ length: 12 }).map((_, index) => (
+                <div key={index} className="anime-card">
+                  <Skeleton height={180} />
+                  <Skeleton width={`80%`} style={{ marginTop: 8 }} />
+                  <Skeleton width={`60%`} style={{ marginTop: 4 }} />
+                </div>
+              ))}
             </div>
+          )}
+
+          {/* Error */}
+          {error && <p className="error-text">{error}</p>}
+
+          {/* Empty / No Results */}
+          {!loading && hasSearched && !hasResults && (
+            <div className="empty-state">
+              <img
+                src="/no-results.png"
+                alt="No results"
+                className="empty-image"
+              />
+              <p>No anime found matching "{query}".</p>
+              <p>Try searching by title, genre, or keyword.</p>
+              <button
+                className="btn-refresh"
+                onClick={() => {
+                  setQuery("");
+                  dispatch(fetchTrendingAnime());
+                  setHasSearched(false);
+                }}
+              >
+                Show Trending Anime
+              </button>
+            </div>
+          )}
+
+          {/* Anime Grid */}
+          {!loading && ((hasSearched && hasResults) || !hasSearched) && (
+            <div className="anime-grid">
+              {(hasSearched ? searchResults : trending).map((anime, index) =>
+                renderAnimeCard(anime, index)
+              )}
+            </div>
+          )}
+
+          {/* Load More Button */}
+          {!loading && hasSearched && hasResults && hasMore && (
+            <button
+              className={`load-btn ${btnHover ? "hover" : ""}`}
+              onClick={loadMore}
+              onMouseEnter={() => setBtnHover(true)}
+              onMouseLeave={() => setBtnHover(false)}
+            >
+              Load More
+            </button>
           )}
         </div>
       </div>
