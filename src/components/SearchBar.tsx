@@ -32,7 +32,7 @@ const SearchBar: React.FC<Props> = ({
   const styles = {
     container: {
       position: "relative" as const,
-      width: "100%",
+      width: "80%",
       maxWidth: "clamp(300px, 80vw, 500px)",
       margin: "0 auto",
     },
