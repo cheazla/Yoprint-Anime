@@ -175,10 +175,8 @@ const SearchPage: React.FC = () => {
             </div>
           )}
 
-          {/* Error */}
           {error && <p className="error-text">{error}</p>}
 
-          {/* Empty / No Results */}
           {!loading && hasSearched && !hasResults && (
             <div className="empty-state">
               <img
@@ -201,7 +199,6 @@ const SearchPage: React.FC = () => {
             </div>
           )}
 
-          {/* Anime Grid */}
           {!loading && ((hasSearched && hasResults) || !hasSearched) && (
             <div className="anime-grid">
               {(hasSearched ? searchResults : trending).map((anime, index) =>
@@ -210,7 +207,6 @@ const SearchPage: React.FC = () => {
             </div>
           )}
 
-          {/* Load More Button */}
           {!loading && hasSearched && hasResults && hasMore && (
             <button
               className={`load-btn ${btnHover ? "hover" : ""}`}

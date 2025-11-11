@@ -26,7 +26,6 @@ const DetailPage: React.FC = () => {
           ⬅ Back to Search
         </Link>
 
-        {/* Loading Skeleton */}
         {loading && (
           <div className="detail-box">
             <Skeleton height={40} width={`60%`} />
@@ -42,7 +41,6 @@ const DetailPage: React.FC = () => {
           </div>
         )}
 
-        {/* Error */}
         {error && (
           <div className="error-state">
             <p className="error-text">{error}</p>
@@ -55,7 +53,6 @@ const DetailPage: React.FC = () => {
           </div>
         )}
 
-        {/* Empty state */}
         {!loading && !error && !selectedAnime && (
           <div className="empty-state">
             <img
@@ -70,7 +67,6 @@ const DetailPage: React.FC = () => {
           </div>
         )}
 
-        {/* Anime Details */}
         {!loading && !error && selectedAnime && (
           <div className="detail-box">
             <h1 className="title">{selectedAnime.title}</h1>
