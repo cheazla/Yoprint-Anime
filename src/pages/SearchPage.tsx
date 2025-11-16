@@ -36,6 +36,8 @@ const SearchPage: React.FC = () => {
 
   const searchBarRef = useRef<HTMLDivElement>(null);
 
+  const TRENDING_LIMIT = 10;
+
   useEffect(() => {
     dispatch(fetchTrendingAnime());
   }, [dispatch]);
@@ -79,7 +81,8 @@ const SearchPage: React.FC = () => {
     if (!loading && hasMore) debouncedSearch(query, currentPage + 1);
   };
 
-  const suggestions = query.trim() === "" ? trending : searchResults;
+  const suggestions =
+    query.trim() === "" ? trending.slice(0, TRENDING_LIMIT) : searchResults;
   const hasResults = Array.isArray(searchResults) && searchResults.length > 0;
 
   const toggleDescription = (index: number) => {
@@ -162,7 +165,6 @@ const SearchPage: React.FC = () => {
             {hasSearched && hasResults ? "Search Results" : "Trending Anime"}
           </h2>
 
-          {/* Loading Skeleton */}
           {loading && (
             <div className="anime-grid">
               {Array.from({ length: 12 }).map((_, index) => (
@@ -201,9 +203,7 @@ const SearchPage: React.FC = () => {
 
           {!loading && ((hasSearched && hasResults) || !hasSearched) && (
             <div className="anime-grid">
-              {(hasSearched ? searchResults : trending).map((anime, index) =>
-                renderAnimeCard(anime, index)
-              )}
+              {suggestions.map((anime, index) => renderAnimeCard(anime, index))}
             </div>
           )}
 
